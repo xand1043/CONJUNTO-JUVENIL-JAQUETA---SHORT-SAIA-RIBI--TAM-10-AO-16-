@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"]</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modas R&amp;R · Atacado &amp; Varejo — Moda Feminina e Infantil</title>
+<!--
+  ============================================================
+  MODAS R&R · LOJA DE VENDAS — um arquivo só, abra no navegador.
+  PONTOS DE EDIÇÃO (procure pelos marcadores):
+    # MARCA     -> nome/logo da loja (header, rodapé e <title>)
+    # WHATSAPP  -> telefone da loja: 55 + DDD + número (const WHATSAPP
+                   no <script> e href dos botões "https://wa.me/...")
+    # FOTOS     -> blocos "" (principal e extras)
+    # PRODUTOS  -> nomes, descrições, destaques, fichas e preços
+                   (Atacado | Varejo) — a Moda Adulta está em placeholder
+    # CATEGORIAS-> lista do menu de categorias (data-cat dos cards precisam bater)
+  Conteúdo real na Moda Infantil; substitua a seção adulta pelos seus.
+  ============================================================
+-->
+<style>
+  /* ================= SISTEMA ================= */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg: #FAF9F7;
+    --surface: #FFFFFF;
+    --wash: #F3F0EC;
+    --fg: #26221F;
+    --muted: #7A736C;
+    --line: #E5E0D9;
+    --accent: #B08D57;
+    --accent-deep: #8A6E3F;
+    --accent-hover: #74592F;
+    --accent-soft: #D9C9AE;
+    --display: 'Montserrat', 'Inter', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --shadow: 0 22px 50px rgba(38, 34, 31, .12);
+    --radius: 18px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 var(--body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ul { list-style: none; }
+
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  :focus-visible {
+    outline: 3px solid var(--accent-deep);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .caps {
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  /* ================= BARRA DE ANÚNCIO ================= */
+  .ann-bar {
+    background: var(--accent-deep);
+    color: #F6EFE4;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ann-track {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+  }
+  .ann-item {
+    padding: 10px 0;
+    font: 600 13px/1 var(--body);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .ann-item + .ann-item { margin-left: 64px; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  /* ================= CABEÇALHO ================= */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(250, 249, 247, .92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 76px;
+  }
+  .logo {
+    font: 800 26px/1 var(--display);
+    letter-spacing: -.01em;
+    color: var(--fg);
+  }
+  .logo i { font-style: normal; color: var(--accent-deep); }
+  .hamb { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; }
+  .hamb:hover { background: var(--wash); }
+  .header-actions { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+  .h-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 44px; padding: 0 14px; border-radius: 12px;
+    font-weight: 700; font-size: 15px;
+  }
+  .h-btn:hover { background: var(--wash); }
+  .cart-wrap { position: relative; }
+  .cart-badge {
+    position: absolute; top: 2px; right: 4px;
+    min-width: 18px; height: 18px; padding: 0 5px;
+    background: var(--accent-deep); color: #fff;
+    font: 800 11px/18px var(--body); text-align: center;
+    border-radius: 999px;
+  }
+
+  /* ================= CATEGORIAS ================= */
+  .cat-strip { border-bottom: 1px solid var(--line); background: var(--surface); }
+  .cat-track {
+    display: flex; gap: 8px;
+    overflow-x: auto;
+    padding: 10px 0;
+    scrollbar-width: none;
+  }
+  .cat-track::-webkit-scrollbar { display: none; }
+  .cat-chip {
+    flex: 0 0 auto;
+    padding: 9px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font: 600 14px/1.2 var(--body);
+    color: var(--fg);
+    min-height: 40px;
+  }
+  .cat-chip:hover, .cat-chip.is-active {
+    background: var(--accent-deep);
+    border-color: var(--accent-deep);
+    color: #F6EFE4;
+  }
+
+  /* ================= HERO ================= */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(closest-side, rgba(176, 141, 87, .10), transparent 70%),
+      radial-gradient(600px 360px at 88% 18%, rgba(217, 201, 174, .18), transparent 70%),
+      linear-gradient(180deg, #FDFCFA, var(--bg));
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 48px;
+    align-items: center;
+    padding: 72px 24px 84px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .hero-inner > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; }
+  .hero-inner > :nth-child(1) { animation-delay: .05s; }
+  .hero-inner > :nth-child(2) { animation-delay: .18s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); } }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    color: var(--accent-deep);
+    font-size: 13px;
+    letter-spacing: .28em;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 30px; height: 1.5px; background: var(--accent-deep);
+  }
+  .hero h1 {
+    margin-top: 18px;
+    font: 600 clamp(38px, 4.4vw, 58px)/1.15 var(--display);
+    letter-spacing: -.015em;
+    color: var(--fg);
+  }
+  .hero h1 i {
+    font-style: normal;
+    color: var(--accent-deep);
+  }
+  .hero p.lead {
+    margin-top: 16px;
+    max-width: 56ch;
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .hero-ctas { margin-top: 30px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 52px; padding: 13px 26px;
+    border-radius: 999px;
+    font-weight: 800; font-size: 17px; letter-spacing: .01em;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary { background: var(--accent-deep); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow); }
+  .btn-ghost {
+    border: 1.5px solid var(--line); color: var(--fg); background: var(--surface);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent-deep); }
+  .hero-trust { margin-top: 26px; display: flex; gap: 18px; flex-wrap: wrap; color: var(--muted); font-size: 14px; font-weight: 600; }
+  .hero-trust li { display: flex; align-items: center; gap: 8px; }
+  .hero-trust svg { color: var(--accent-deep); flex: 0 0 auto; }
+
+  .hero-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .ph-tile {
+    aspect-ratio: 3 / 4;
+    border-radius: 26px;
+    display: grid; place-items: center;
+    color: var(--muted);
+    font: 700 14px/1.4 var(--body);
+    text-align: center;
+    padding: 16px;
+  }
+  .ph-tile.small { aspect-ratio: auto; min-height: 150px; }
+  .ph-tile svg { margin: 0 auto 10px; opacity: .55; }
+  .ph-tile:nth-child(1) { background: linear-gradient(160deg, #F2EDE5, #EBE3D4); }
+  .ph-tile:nth-child(2) { background: linear-gradient(160deg, #F0EBE2, #E7DFD1); transform: translateY(26px); }
+  .ph-tile:nth-child(3) { background: linear-gradient(160deg, #E9E2D6, #E0D7C6); }
+  .ph-tile:nth-child(4) { background: linear-gradient(160deg, #EFEADF, #E3DBCA); transform: translateY(-14px); }
+
+  /* Imagens infantis menores e proporcionais */
+  #gridInfantil .card-ph {
+    aspect-ratio: 4 / 3;
+    padding: 18px;
+  }
+  #gridInfantil .card-ph > .ph-swap {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+    object-position: center;
+  }
+  #gridInfantil .gallery .gal-cell {
+    padding: 6px;
+    overflow: hidden;
+  }
+  #gridInfantil .gallery .gal-cell .ph-swap {
+    width: 88%;
+    height: 88%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  /* ================= SELEÇÃO DE SEÇÃO ================= */
+  .sectionpick { text-align: center; margin-top: -34px; position: relative; z-index: 5; }
+  .seg {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px;
+    box-shadow: 0 14px 34px rgba(38, 34, 31, .08);
+    position: relative;
+  }
+  .seg .thumb {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px;
+    width: calc(50% - 6px); height: calc(100% - 12px);
+    background: var(--accent-deep);
+    border-radius: 3px;
+    transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+  }
+  .seg.two .thumb { transform: translateX(100%); }
+  .seg button {
+    position: relative;
+    min-width: 190px; min-height: 52px;
+    padding: 0 30px;
+    border-radius: 3px;
+    font: 700 16px/1 var(--display);
+    letter-spacing: .05em;
+    color: var(--fg);
+    z-index: 1;
+    transition: color .25s ease;
+  }
+  .seg button.is-active { color: #F6EFE4; }
+
+  /* ================= CATÁLOGO ================= */
+  .catalog { padding: 56px 0 24px; }
+  .catalog-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .catalog-head h2 { font: 600 32px/1.2 var(--display); letter-spacing: -.01em; color: var(--fg); }
+  .catalog-head p { color: var(--muted); margin-top: 6px; max-width: 60ch; }
+
+  .chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .chip {
+    min-height: 44px; padding: 10px 20px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font: 700 15px/1 var(--body);
+    color: var(--muted);
+    transition: all .18s ease;
+  }
+  .chip:hover { color: var(--accent-deep); border-color: var(--accent-soft); }
+  .chip.is-active {
+    background: var(--accent-deep);
+    border-color: var(--accent-deep);
+    color: #fff;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 26px;
+    margin-top: 34px;
+  }
+  .grid.g-one, .grid.g-one.off { display: none; }
+  .reveal { transition: opacity .6s ease, transform .6s ease; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+    border-color: var(--accent-soft);
+  }
+  .card-ph {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(160deg, var(--wash), #EFEBE4);
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+  .card-ph .ph-box { text-align: center; color: var(--muted); font: 700 13px/1.4 var(--body); }
+  .ph-swap {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transform: scale(1.001);
+    transition: transform .5s ease;
+  }
+  .card:hover .ph-swap { transform: scale(1.07); }
+  .badge-off {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--fg);
+    color: #FAF9F7;
+    font: 600 11px/1 var(--display);
+    letter-spacing: .12em;
+    padding: 8px 12px;
+    border-radius: 2px;
+  }
+  .card-body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+  .card-cat { font: 600 11px/1 var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .card-name { margin-top: 8px; font: 600 17px/1.35 var(--display); color: var(--fg); }
+  .card-desc { margin-top: 8px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+  .card-prices { margin-top: 10px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .price-old { color: var(--muted); font-size: 14px; text-decoration: line-through; text-decoration-color: #C9C2B8; }
+  .wal-prices { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  .wal-prices .wal-at, .wal-prices .wal-va { display: flex; flex-direction: column; }
+  .wal-prices b { font: 700 17px/1 var(--display); letter-spacing: -.01em; }
+  .wal-prices .wal-at b { color: var(--accent-deep); }
+  .wal-prices .wal-va b { color: var(--fg); }
+  .wal-prices small { font: 600 10px/1 var(--display); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .price-now { color: var(--accent-deep); font: 700 21px/1 var(--display); letter-spacing: -.01em; }
+  .btn-wa {
+    margin-top: 16px;
+    display: flex;
+  }
+  /* WhatsApp: identidade profissional — sem avatar verde saltitante;
+     linha sóbria bronze que vira botão sólido no hover. Coerente com o
+     único acento da loja (bronze). */
+  .btn-wa a {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 46px; padding: 11px 18px;
+    border-radius: 4px;
+    width: 100%;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    color: var(--accent-deep);
+    font: 700 14px/1 var(--display);
+    letter-spacing: .04em;
+    transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease;
+  }
+  .btn-wa a:hover {
+    background: var(--accent-deep);
+    border-color: var(--accent-deep);
+    color: #F6EFE4;
+    transform: translateY(-1px);
+  }
+  .btn-wa svg { flex: 0 0 auto; }
+  .btn-wa .wa-desc { display: block; font: 600 11px/1.3 var(--body); letter-spacing: .02em; margin-top: 2px; }
+  .btn-wa .wa-txt { display: flex; flex-direction: column; align-items: flex-start; }
+
+  /* galeria dentro do card (até 5 fotos) — estrutura pronta para img */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .gallery.g4 { grid-template-columns: repeat(4, 1fr); }
+  .gallery .gal-cell {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--wash), #EFEBE4);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    display: grid; place-items: center;
+    color: var(--muted);
+    font: 600 9px/1.2 var(--body);
+    text-align: center;
+    padding: 4px;
+  }
+
+  .empty-note {
+    margin-top: 30px; padding: 36px;
+    text-align: center;
+    color: var(--muted);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    font-weight: 700;
+    display: none;
+  }
+
+  /* ================= NOVIDADES ================= */
+  .novidades { padding: 70px 0 30px; }
+  .novidades h2 { font: 600 32px/1.2 var(--display); letter-spacing: -.01em; }
+  .novidades .sub { color: var(--muted); margin-top: 6px; }
+  .nov-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 26px;
+    margin-top: 34px;
+  }
+
+  /* ================= NEWSLETTER ================= */
+  .newsletter {
+    margin: 70px auto 30px;
+    max-width: 1240px;
+    background: linear-gradient(150deg, #F1ECE3, #E8E0D2);
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 52px 56px;
+  }
+  .newsletter h2 { font: 600 32px/1.2 var(--display); letter-spacing: -.01em; }
+  .newsletter p { color: var(--muted); margin-top: 10px; max-width: 46ch; }
+  .news-form { display: grid; gap: 14px; align-content: start; }
+  .news-form label .lbl { display: block; font: 700 13px/1 var(--body); letter-spacing: .18em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 7px; }
+  .news-form input {
+    width: 100%;
+    min-height: 52px;
+    padding: 13px 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+    font: 600 16px/1 var(--body);
+    color: var(--fg);
+  }
+  .news-form input:focus { border-color: var(--accent); outline: none; outline-offset: 0; }
+  .news-form input:focus-visible { outline: 3px solid var(--accent-deep); outline-offset: 2px; }
+  .news-form input::placeholder { color: var(--muted); }
+  .news-form .btn-primary { width: 100%; }
+  .news-note { font-size: 13px; color: var(--muted); }
+  .form-ok {
+    display: none;
+    padding: 16px 18px;
+    background: #E5F4EC;
+    color: #1F6B43;
+    border-radius: 14px;
+    font-weight: 700;
+  }
+  .form-ok.show { display: block; animation: pop .3s ease; }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px); } }
+
+  /* ================= RODAPÉ ================= */
+  .footer { background: #2E262A; color: #E9E2E5; margin-top: 30px; padding: 60px 0 0; }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr;
+    gap: 44px;
+  }
+  .foot-grid h4 {
+    color: #F6EFE4;
+    font: 700 13px/1 var(--display);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .foot-grid li { margin-bottom: 11px; font-size: 15px; color: #C7BEB4; }
+  .foot-grid a:hover { color: var(--accent-soft); }
+  .foot-brand .logo { color: #F6EFE4; }
+  .foot-brand p { margin-top: 14px; color: #C7BEB4; max-width: 34ch; font-size: 15px; }
+  .socials { display: flex; gap: 10px; margin-top: 20px; }
+  .socials a {
+    display: grid; place-items: center;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    transition: background .18s ease;
+  }
+  .socials a:hover { background: var(--accent-deep); }
+  .secure {
+    margin-top: 22px; display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 999px;
+    font: 700 13px/1 var(--body);
+    color: #E9E2E5;
+  }
+  .foot-bottom {
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    padding: 22px 0;
+    font-size: 14px;
+    color: #9A8E93;
+    display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  }
+
+  /* ================= FLUTUANTE WHATSAPP ================= */
+  .wa-float {
+    position: fixed;
+    right: 22px; bottom: 22px;
+    z-index: 70;
+    width: 62px; height: 62px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    display: grid; place-items: center;
+    color: #F6EFE4;
+    box-shadow: 0 12px 28px rgba(138, 110, 63, .4);
+    transition: transform .2s ease;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+  .wa-float::after {
+    content: ""; position: absolute; inset: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(138, 110, 63, .4);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 16px rgba(138, 110, 63, 0); } }
+
+  /* ================= DRAWER / BUSCA ================= */
+  .drawer {
+    position: fixed; inset: 0;
+    z-index: 90;
+    background: rgba(46, 38, 42, .4);
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease;
+  }
+  .drawer.open { opacity: 1; pointer-events: auto; }
+  .drawer-panel {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: min(360px, 88vw);
+    background: var(--surface);
+    padding: 24px;
+    transform: translateX(-100%);
+    transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+    overflow-y: auto;
+  }
+  .drawer.open .drawer-panel { transform: none; }
+  .drawer-panel h3 { font: 800 20px/1.2 var(--display); margin-bottom: 18px; }
+  .drawer-panel li { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .drawer-panel li button {
+    width: 100%; text-align: left;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font: 700 16px/1.2 var(--body);
+    color: var(--fg);
+  }
+  .drawer-panel li button:hover { background: var(--wash); color: var(--accent-deep); }
+  .drawer-close {
+    position: absolute; top: 18px; right: 18px;
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+  }
+  .drawer-close:hover { background: var(--wash); }
+
+  .search-overlay {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 85;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 24px;
+    transform: translateY(-100%);
+    transition: transform .28s ease;
+    box-shadow: 0 20px 50px rgba(46, 38, 42, .18);
+  }
+  .search-overlay.open { transform: none; }
+  .search-row { display: flex; gap: 12px; max-width: 720px; margin: 0 auto; }
+  .search-row input {
+    flex: 1; min-height: 52px;
+    padding: 12px 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    font: 600 16px/1 var(--body);
+  }
+  .search-row input:focus { border-color: var(--accent); outline: none; }
+  .search-row .btn-primary { min-width: 140px; }
+
+  /* ================= TOAST ================= */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translate(-50%, 20px);
+    z-index: 95;
+    background: #2E262A; color: #fff;
+    padding: 14px 22px;
+    border-radius: 999px;
+    font: 700 15px/1 var(--body);
+    opacity: 0; pointer-events: none;
+    transition: opacity .25s ease, transform .25s ease;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ================= REVEAL / MOTION ================= */
+  .js .reveal:not(.in) { opacity: 0; transform: translateY(24px); }
+  .reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
+  .hide-card { display: none !important; }
+
+  .to-top { color: var(--accent-soft); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ann-track { animation: none; }
+    * { scroll-behavior: auto; }
+    .js .reveal:not(.in) { opacity: 1; transform: none; }
+  }
+
+  /* ================= RESPONSIVO ================= */
+  @media (max-width: 920px) {
+    .hero-inner { grid-template-columns: 1fr; padding-top: 52px; }
+    .hero-visual { margin-top: 20px; max-width: 460px; }
+    .ph-tile:nth-child(2), .ph-tile:nth-child(3) { transform: none; }
+    .newsletter { grid-template-columns: 1fr; padding: 36px 24px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .logo { font-size: 22px; }
+    .h-btn > span:not(.cart-badge) { display: none; }
+    .seg button { min-width: 150px; padding: 0 16px; font-size: 15px; }
+    .catalog-head h2, .novidades h2 { font-size: 28px; }
+    .foot-grid { grid-template-columns: 1fr; gap: 30px; }
+    .newsletter h2 { font-size: 28px; }
+    .ann-item { font-size: 12px; }
+    .hero h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+  <!-- CABEÇALHO (# MARCA: troque "Modas R&R" aqui e no rodapé) -->
+  <header class="site-header" data-od-id="header">
+    <div class="wrap header-inner">
+      <button class="hamb" id="btnHamb" aria-label="Abrir categorias">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+      </button>
+      <a class="logo" href="#" aria-label="Modas R&amp;R — início">Modas<i>R&amp;R</i></a>
+      <div class="header-actions">
+        <button class="h-btn" id="btnSearch" aria-label="Buscar produtos">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span>Buscar</span>
+        </button>
+        <!-- CARRINHO: badge é decorativo — ligue ao fechamento de pedido
+             (carrinho) quando quiser (# CARRINHO) -->
+        <div class="cart-wrap">
+          <button class="h-btn" id="cartButton" aria-label="Carrinho — 0 itens">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+            <span class="cart-badge" id="cartBadge">0</span>
+            <span>Carrinho</span>
+          </button>
+        </div>
+        <button class="h-btn" aria-label="Minha conta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-3.6 4.2-5.4 8-5.4s6.8 1.8 8 5.4"/></svg>
+          <span>Minha Conta</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORIAS (# CATEGORIAS: edite as opções; os carros "data-cat"
+       precisam bater com os cards do catálogo) -->
+  <nav class="cat-strip" data-od-id="menu-categorias" aria-label="Categorias">
+    <div class="wrap cat-track" id="catTrack">
+      <button class="cat-chip" data-cat="short">Short</button>
+      <button class="cat-chip" data-cat="saia">Saia</button>
+      <button class="cat-chip" data-cat="vestidos">Vestidos</button>
+      <button class="cat-chip" data-cat="conjuntos">Conjuntos</button>
+      <button class="cat-chip" data-cat="infantojuvenil">Moda infantojuvenil</button>
+      <button class="cat-chip" data-cat="adulto">Moda adulta</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" data-od-id="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="caps hero-eyebrow">Atacado &amp; varejo</span>
+        <h1>Moda que veste <i>cada fase</i>, com acabamento de quem entende.</h1>
+        <p class="lead">Roupas femininas e infantis com preço de atacado. Adulto e infantil no mesmo catálogo — monte seu pedido direto pelo WhatsApp, com atendimento de loja.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
+          <a class="btn btn-ghost" href="https://wa.me/5511951512886" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+        <ul class="hero-trust">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Atacado a partir de 12 peças</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Adulto e infantil em um só lugar</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>Atendimento direto no WhatsApp</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <!-- FOTOS: troque estes 4 blocos por <img class="ph-swap" src="foto.jpg" alt=""> -->
+        <div class="ph-tile">Sua foto aqui<br><small>modelo infantil</small></div>
+        <div class="ph-tile small">Sua foto aqui<br><small>detalhe do tecido</small></div>
+        <div class="ph-tile">Sua foto aqui<br><small>modelo juvenil</small></div>
+        <div class="ph-tile small">Sua foto aqui<br><small>detalhe da peça</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELETOR ADULTO | INFANTOJUVENIL -->
+  <div class="wrap sectionpick" data-od-id="seletor-secao">
+    <div class="seg" id="seg">
+      <div class="thumb" aria-hidden="true"></div>
+      <button data-sec="adulto" class="is-active">Moda adulto</button>
+      <button data-sec="infantil">Moda infantil</button>
+    </div>
+  </div>
+
+  <!-- CATÁLOGO -->
+  <main class="catalog wrap" id="catalogo" data-od-id="catalogo">
+    <div class="catalog-head">
+      <div>
+        <h2>Atacado &amp; varejo em um só catálogo</h2>
+        <p>Linha adulto ou infantil — filtre por destaque, veja preços de atacado e varejo e feche o pedido direto no WhatsApp.</p>
+      </div>
+    </div>
+
+    <!-- FILTROS DE DESTAQUE -->
+    <div class="chips" data-od-id="filtros-destaque" role="group" aria-label="Filtrar por destaque">
+      <button class="chip is-active" data-tag="todos">Todos</button>
+      <button class="chip" data-tag="lancamentos">Lançamentos</button>
+      <button class="chip" data-tag="mais-vendidos">Mais vendidos</button>
+      <button class="chip" data-tag="promocoes">Promoções</button>
+    </div>
+
+    <!-- GRADE MODA ADULTO -->
+    <!-- # PRODUTOS: na Moda Adulta, nomes, descrições e preços são
+         PLACEHOLDER (dados temporários) — substitua pelos seus.
+         Estrutura do card: foto → nome → preços Atacado | Varejo → WhatsApp. -->
+    <div class="grid" id="gridAdulto" data-sec="adulto">
+      <!-- ============ VESTIDOS (4) ============ -->
+      <article class="card reveal" data-tags="mais-vendidos" data-cat="vestidos" data-nome="" data-od-id="adulto-vestido-plc-1">
+        <!-- : troque o <div class="card-ph"> por
+             <div class="card-ph"><img class="ph-swap" src="sua-foto.jpg" alt="Vestido Slim — Placeholder"></div>
+             Deixe o <span class="badge-off">% OFF</span> se quiser destacar preço. -->
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Vestidos · Slim</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS — exemplo: https://wa.me/5511951512886?text=Olá! -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="vestidos" data-nome="" data-od-id="adulto-vestido-plc-2">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Vestidos · Slim</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="promocoes" data-cat="vestidos" data-nome="" data-od-id="adulto-vestido-plus-1">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Vestidos · Plus Size</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="vestidos" data-nome="" data-od-id="adulto-vestido-plus-2">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Vestidos · Plus Size</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ CALÇAS (2) ============ -->
+      <article class="card reveal" data-tags="mais-vendidos" data-cat="calcas" data-nome="" data-od-id="adulto-calca-plc-1">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Calças</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="calcas" data-nome="" data-od-id="adulto-calca-plc-2">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Calças</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ SHORT (1) e SAIA (1) ============ -->
+      <article class="card reveal" data-tags="mais-vendidos promocoes" data-cat="short" data-nome="" data-od-id="adulto-short-plc">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Short</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="saia" data-nome="" data-od-id="adulto-saia-plc">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Saia</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ BERMUDAS (2) ============ -->
+      <article class="card reveal" data-tags="promocoes" data-cat="short" data-nome="" data-od-id="adulto-bermuda-1">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Bermudas</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="short" data-nome="" data-od-id="adulto-bermuda-2">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Bermudas</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ CONJUNTOS ADULTOS (2) ============ -->
+      <article class="card reveal" data-tags="mais-vendidos" data-cat="conjuntos" data-nome="" data-od-id="adulto-conjunto-1">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Conjuntos</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="conjuntos" data-nome="" data-od-id="adulto-conjunto-2">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Conjuntos</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- IMAGENS DOS PRODUTOS: os arquivos referenciados nos cards devem ficar na mesma pasta deste HTML. -->
+    <!-- GRADE INFANTOJUVENIL -->
+    <!-- # PRODUTOS: conteúdo REAL da linha infantil. Os quatro primeiros são produtos reais com descrição, detalhes técnicos e galerias estruturadas conforme o catálogo. O preço informado está disponível apenas para o Conjunto Mini-Diva; os demais ficam sem preço até definição. -->
+    <div class="grid g-one off" id="gridInfantil" data-sec="infantil">
+
+      <!-- ============ INFANTIL 1 :: CONJUNTO MINI-DIVA ============ -->
+      <article class="card reveal" data-tags="mais-vendidos" data-cat="conjuntos infantojuvenil" data-nome="Conjunto Mini-Diva" data-od-id="infantil-conjunto-mini-diva">
+        <div class="card-ph">
+          <!-- FOTO PRINCIPAL: Conjunto Mini-Diva (1).jpeg -->
+          <img class="ph-swap" src="Conjunto%20Mini-Diva%20(1).jpeg" alt="Conjunto Mini-Diva">
+        </div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Conjuntos · Infantojuvenil</span>
+          <h3 class="card-name">Conjunto Mini-Diva</h3>
+          <p class="card-desc">Para as pequenas e mocinhas brilharem com muito estilo! Nosso novo conjunto combina a sofisticação do colete estilo blazer com a delicadeza da saia plissada. Um look moderno e super elegante!</p>
+          <div class="product-details"><p>💛 Tamanhos disponíveis: do 06 ao 16</p><p>💛 Botões dourados refinados &amp; corte perfeito</p><p>💛 Ideal para festas, passeios e eventos especiais</p></div>
+          <div class="wal-prices"><span class="wal-at"><small>Atacado</small><b>R$ 30</b></span><span class="wal-va"><small>Varejo</small><b>R$ 35</b></span></div>
+          <!-- GALERIA / CARROSSEL: inserir até 3 imagens nos espaços abaixo -->
+          <div class="gallery"><div class="gal-cell"><img class="ph-swap" src="Conjunto%20Mini-Diva%20(2).jpeg" alt="Conjunto Mini-Diva — imagem 3"></div><div class="gal-cell"><img class="ph-swap" src="Conjunto%20Mini-Diva%20(3).jpeg" alt="Conjunto Mini-Diva — imagem 4"></div></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- TELEFONE DO WHATSAPP: configurar na constante WHATSAPP do JavaScript, somente números, ex.: 5511999999999 -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ INFANTIL 2 :: CONJUNTO JAQUETA & SHORT-SAIA RIBI ============ -->
+      <article class="card reveal" data-tags="lancamentos" data-cat="conjuntos infantojuvenil" data-nome="Conjunto Juvenil Jaqueta & Short-Saia Ribi (Tam 10 ao 16)" data-od-id="infantil-conjunto-ribi">
+        <div class="card-ph">
+          <!-- FOTO PRINCIPAL: CONJUNTO JUVENIL JAQUETA & SHORT-SAIA RIBI (1).jpeg -->
+          <img class="ph-swap" src="CONJUNTO%20JUVENIL%20JAQUETA%20%26%20SHORT-SAIA%20RIBI%20(1).jpeg" alt="Conjunto Juvenil Jaqueta & Short-Saia Ribi (Tam 10 ao 16)">
+        </div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Conjuntos · Infantojuvenil</span>
+          <h3 class="card-name">Conjunto Juvenil Jaqueta & Short-Saia Ribi (Tam 10 ao 16)</h3>
+          <p class="card-desc">O look perfeito para as mocinhas arrasarem nos dias mais frios e atemporal com muito estilo, conforto e elegância! Esse conjunto une a sofisticação da textura estilo tweed ao caimento macio e quentinho da malha ribi.</p>
+          <div class="product-details"><p>✨ <strong>Destaques do Look:</strong></p><p><strong>Jaqueta:</strong> Manga longa com gola colarinho, fechamento frontal por botões prateados e bolsos no busto com lapela.</p><p><strong>Short-Saia:</strong> Cós confortável, bolsos fake decorativos com botões e modelagem soltinha que garante total liberdade de movimento.</p><p>📋 <strong>Ficha Técnica:</strong> Tecido: Malha Ribi · Tamanhos: 10, 12, 14 e 16 · Estilo: Casual Chic.</p><p>💡 Perfeito para combinar com botas, coturnos ou tênis em passeios, festas e eventos especiais.</p></div>
+          
+          <!-- GALERIA / CARROSSEL: inserir até 3 imagens nos espaços abaixo -->
+          <div class="gallery"><div class="gal-cell"><img class="ph-swap" src="CONJUNTO%20JUVENIL%20JAQUETA%20%26%20SHORT-SAIA%20RIBI%20(2).jpeg" alt="Conjunto Juvenil Jaqueta & Short-Saia Ribi — imagem 3"></div><div class="gal-cell"><img class="ph-swap" src="CONJUNTO%20JUVENIL%20JAQUETA%20%26%20SHORT-SAIA%20RIBI%20(3).jpeg" alt="Conjunto Juvenil Jaqueta & Short-Saia Ribi — imagem 4"></div></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- TELEFONE DO WHATSAPP: configurar na constante WHATSAPP do JavaScript, somente números, ex.: 5511999999999 -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ INFANTIL 3 :: CONJUNTO CROPPED & SAIA CARGO ============ -->
+      <article class="card reveal" data-tags="mais-vendidos lancamentos" data-cat="conjuntos infantojuvenil" data-nome="Conjunto Juvenil Cropped & Saia Cargo (Combinações com Branco)" data-od-id="infantil-conjunto-cargo">
+        <div class="card-ph">
+          <!-- FOTO PRINCIPAL: CONJUNTO JUVENIL CROPPED & SAIA CARGO (COMBINAÇÕES COM BRANCO (1).jpeg -->
+          <img class="ph-swap" src="CONJUNTO%20JUVENIL%20CROPPED%20%26%20SAIA%20CARGO%20(COMBINA%C3%87%C3%95ES%20COM%20BRANCO%20(1).jpeg" alt="Conjunto Juvenil Cropped & Saia Cargo">
+        </div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Conjuntos · Infantojuvenil</span>
+          <h3 class="card-name">Conjunto Juvenil Cropped & Saia Cargo (Combinações com Branco)</h3>
+          <p class="card-desc">O modelo perfeito para o público juvenil/teen que ama a tendência streetwear! O contraste das cores vibrantes com os detalhes em branco traz um visual super moderno, estiloso e cheio de atitude.</p>
+          <div class="product-details"><p>✨ <strong>Destaques do Look:</strong></p><p><strong>Cropped Top:</strong> Alças brancas contrastantes com fivelas ajustáveis estilo suspensório.</p><p><strong>Saia Dupla Camada:</strong> Bolsos cargo frontais com fivelas, barra com pregas soltinhas e sobreposição inferior na cor branca.</p><p>📋 <strong>Ficha Técnica:</strong> Tamanhos: 12, 14 e 16 (Linha Juvenil / Teen) · Cores disponíveis: variadas, todas com detalhes em branco contrastante · Estilo: Streetwear Chic / Cargo Utilitário · Caimento estruturado, moderno e muito confortável.</p><p>💡 Ideal para criar composições incríveis para fotos, passeios e encontros com amigas!</p></div>
+          
+          <!-- GALERIA / CARROSSEL: inserir até 5 imagens nos espaços abaixo -->
+          <div class="gallery"><div class="gal-cell"><img class="ph-swap" src="CONJUNTO%20JUVENIL%20CROPPED%20%26%20SAIA%20CARGO%20(COMBINA%C3%87%C3%95ES%20COM%20BRANCO%20(2).jpeg" alt="Conjunto Juvenil Cropped & Saia Cargo — imagem 3"></div><div class="gal-cell"><img class="ph-swap" src="CONJUNTO%20JUVENIL%20CROPPED%20%26%20SAIA%20CARGO%20(COMBINA%C3%87%C3%95ES%20COM%20BRANCO%20(3).jpeg" alt="Conjunto Juvenil Cropped & Saia Cargo — imagem 4"></div><div class="gal-cell"><img class="ph-swap" src="CONJUNTO%20JUVENIL%20CROPPED%20%26%20SAIA%20CARGO%20(COMBINA%C3%87%C3%95ES%20COM%20BRANCO%20(4).jpeg" alt="Conjunto Juvenil Cropped & Saia Cargo — imagem 5"></div><div class="gal-cell"><img class="ph-swap" src="CONJUNTO%20JUVENIL%20CROPPED%20%26%20SAIA%20CARGO%20(COMBINA%C3%87%C3%95ES%20COM%20BRANCO%20(5).jpeg" alt="Conjunto Juvenil Cropped & Saia Cargo — imagem 6"></div></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- TELEFONE DO WHATSAPP: configurar na constante WHATSAPP do JavaScript, somente números, ex.: 5511999999999 -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ INFANTIL 4 :: CONJUNTO LAÇO & BABADOS ============ -->
+      <article class="card reveal" data-tags="promocoes" data-cat="conjuntos infantojuvenil" data-nome="Conjunto Infantil Laço & Babados" data-od-id="infantil-conjunto-laco">
+        <div class="card-ph">
+          <!-- FOTO PRINCIPAL: CONJUNTO INFANTIL LAÇO & BABADOS (1).jpeg -->
+          <img class="ph-swap" src="%20CONJUNTO%20INFANTIL%20LA%C3%87O%20%26%20BABADOS%20(1).jpeg" alt="Conjunto Infantil Laço & Babados">
+        </div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Conjuntos · Infantojuvenil</span>
+          <h3 class="card-name">Conjunto Infantil Laço & Babados</h3>
+          <p class="card-desc">Um modelo encantador, delicado e super estiloso para as princesas brilharem em qualquer ocasião!</p>
+          <div class="product-details"><p>✨ <strong>Destaques do Look:</strong></p><p>💜 <strong>Cropped:</strong> Com laço frontal e aplicações de pérolas super delicadas.</p><p>💜 <strong>Shorts:</strong> Modelagem com babados duplos nas laterais e elástico na cintura para total conforto e ajuste.</p><p>📋 <strong>Ficha Técnica:</strong> Tamanhos: 06, 08, 10 e 12 · Tecido: Zenim Dominique (encorpado, não amassa fácil e possui ótimo caimento).</p><p>💡 Ideal para passeios, festas, aniversários e momentos especiais!</p></div>
+          
+          <!-- GALERIA / CARROSSEL: inserir até 4 imagens nos espaços abaixo -->
+          <div class="gallery g4"><div class="gal-cell"><img class="ph-swap" src="%20CONJUNTO%20INFANTIL%20LA%C3%87O%20%26%20BABADOS%20(2).jpeg" alt="Conjunto Infantil Laço & Babados — imagem 3"></div><div class="gal-cell"><img class="ph-swap" src="%20CONJUNTO%20INFANTIL%20LA%C3%87O%20%26%20BABADOS%20(3).jpeg" alt="Conjunto Infantil Laço & Babados — imagem 4"></div><div class="gal-cell"><img class="ph-swap" src="%20CONJUNTO%20INFANTIL%20LA%C3%87O%20%26%20BABADOS%20(4).jpeg" alt="Conjunto Infantil Laço & Babados — imagem 5"></div></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- TELEFONE DO WHATSAPP: configurar na constante WHATSAPP do JavaScript, somente números, ex.: 5511999999999 -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <!-- ============ VESTIDOS INFANTIS (2 placeholders estruturados) ============ -->
+      <article class="card reveal" data-tags="lancamentos" data-cat="vestidos" data-nome="" data-od-id="infantil-vestido-plh-1">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Vestidos</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+
+      <article class="card reveal" data-tags="lancamentos" data-cat="vestidos" data-nome="" data-od-id="infantil-vestido-plh-2">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Vestidos</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+    </div>
+      </article>
+
+      <article class="card reveal" data-tags="mais-vendidos" data-cat="blusas" data-nome="" data-od-id="infantil-blusa-plh">
+        <div class="card-ph"><div class="ph-box"></div></div>
+        <div class="card-body">
+          <span class="card-cat">Blusas e Cropped</span>
+          <h3 class="card-name"></h3>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="empty-note" id="emptyNote">Nenhum produto combina com esse filtro — experimente outro.</div>
+  </main>
+
+  <!-- NOVIDADES DA SEMANA -->
+  <section class="novidades wrap" data-od-id="novidades-da-semana">
+    <h2>Novidades da semana</h2>
+    <p class="sub">As peças mais recentes do catálogo — repõe direto no WhatsApp.</p>
+    <div class="nov-grid">
+      <article class="card reveal" data-nome="Conjunto Junior Laço & Babados" data-preco="64,90" data-od-id="novidade-conjunto-laco">
+        <div class="card-ph">
+          <img class="ph-swap" src="CONJUNTO%20JUVENIL%20JAQUETA%20%26%20SHORT-SAIA%20RIBI%20(1).jpeg" alt="Conjunto Juvenil Jaqueta & Short-Saia Ribi (Tam 10 ao 16)">
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Novidade · Infantil</span>
+          <h3 class="card-name">Conjunto Junior Laço &amp; Babados</h3> <!-- INSERIR NOME DO PRODUTO AQUI -->
+          <div class="card-prices"><span class="price-now">R$ 64,90</span></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+      <article class="card reveal" data-nome="Conjunto Juvenil Cropped & Saia Cargo" data-preco="84,90" data-od-id="novidade-conjunto-cargo">
+        <div class="card-ph">
+          <!--  -->
+          <div class="ph-box"></div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Novidade · Juvenil</span>
+          <h3 class="card-name">Conjunto Juvenil Cropped &amp; Saia Cargo</h3>
+          <div class="card-prices"><span class="price-now">R$ 84,90</span></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+      <article class="card reveal" data-nome="Conjunto Mini-Diva" data-preco="30" data-od-id="novidade-mini-diva">
+        <div class="card-ph">
+          <!--  -->
+          <div class="ph-box"></div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Novidade · Festa</span>
+          <h3 class="card-name">Conjunto Mini-Diva</h3>
+          <div class="card-prices"><span class="price-now">R$ 30</span></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+      <article class="card reveal" data-nome="Conjunto Juvenil Jaqueta & Short-Saia Ribi" data-preco="79,90" data-od-id="novidade-conjunto-ribi">
+        <div class="card-ph">
+          <!--  -->
+          <div class="ph-box"></div>
+        </div>
+        <div class="card-body">
+          <span class="card-cat">Novidade · Juvenil</span>
+          <h3 class="card-name">Conjunto Juvenil Jaqueta &amp; Short-Saia Ribi (Tam 10 ao 16)</h3>
+          <div class="card-prices"><span class="price-now">R$ 79,90</span></div>
+          <div class="btn-wa"><a class="wa-btn" href="#" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Adicionar ao pedido</a></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="footer" data-od-id="rodape">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="logo" href="#">Modas<i>R&amp;R</i></a> <!-- # MARCA -->
+          <p>Moda feminina e infantil com atendimento de loja — atacado e varejo em um só catálogo.</p>
+          <div class="socials">
+            <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 12a4.5 4.5 0 1 0 4.5 4.5V3c.8 1.6 2.6 3 5 3"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8h3V5h-3a4 4 0 0 0-4 4v2H7v3h3v7h3v-7h3l1-3h-4V9a1 1 0 0 1 1-1Z"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 8s0-3.2-.4-4.6c-.2-.8-.9-1.5-1.7-1.7C19.5 1.3 12 1.3 12 1.3s-7.5 0-8.9.4c-.8.2-1.5.9-1.7 1.7C1 4.8 1 8 1 8s0 3.2.4 4.6c.2.8.9 1.5 1.7 1.7 1.4.4 8.9.4 8.9.4s7.5 0 8.9-.4c.8-.2 1.5-.9 1.7-1.7C23 11.2 23 8 23 8ZM10 11.8V4.7l6.5 3.5L10 11.8Z"/></svg></a>
+          </div>
+          <span class="secure">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            Pagamento seguro · ambiente SSL
+          </span>
+        </div>
+        <div>
+          <h4>Formas de pagamento e entrega</h4>
+          <ul>
+            <li>Pix, cartão e boleto</li>
+            <li>Retirada na loja (Brás)</li>
+            <li>Envios para todo o Brasil</li>
+            <li>Atacado a partir de 12 peças</li>
+            <li>Entregas em excursão e motoboy</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Atendimento</h4>
+          <ul>
+            <li><a id="waLinkFooter" href="https://wa.me/5511951512886" target="_blank" rel="noopener"><!-- INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS -->Falar com a loja no WhatsApp</a></li>
+            <li>Seg–Sáb · 6h às 17h</li>
+            <li>São Paulo – SP</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Institucional</h4>
+          <ul>
+            <li><a href="#">Sobre a loja</a></li>
+            <li><a href="#">Política de fretes</a></li>
+            <li><a href="#">Termos de garantia</a></li>
+            <li><a href="#">Política de trocas</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Modas R&amp;R · São Paulo – SP</span>
+        <span>Atacado &amp; varejo · Moda feminina e infantil</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WHATSAPP FLUTUANTE: o número é configurado na constante WHATSAPP abaixo -->
+  <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4-4.9-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 .9-2.3c.2-.3.5-.4.7-.4h.5c.2 0 .4-.1.6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.3 1.3 1.1 2.3 1.5 2.7 1.6.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.4.1.1.1.7-.2 1.3Z"/></svg>
+  </a>
+
+  <!-- DRAWER DE CATEGORIAS -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Categorias">
+    <div class="drawer-panel">
+      <button class="drawer-close" id="drawerClose" aria-label="Fechar categorias"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <h3>Todas as categorias</h3>
+      <ul>
+        <li><button data-cat="short">Short</button></li>
+        <li><button data-cat="saia">Saia</button></li>
+        <li><button data-cat="vestidos">Vestidos</button></li>
+        <li><button data-cat="conjuntos">Conjuntos</button></li>
+        <li><button data-cat="infantojuvenil">Moda infantojuvenil</button></li>
+        <li><button data-cat="adulto">Moda adulta</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BUSCA -->
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-row">
+      <label for="searchInput" class="sr-only" style="position:absolute;left:-9999px;">Buscar produtos</label>
+      <input type="text" id="searchInput" placeholder="Buscar produto… ex.: vestido, legging" autocomplete="off" />
+      <button class="btn btn-primary" id="searchGo">Buscar</button>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  /* ============================================================
+     # WHATSAPP — número único da loja.
+     INSIRA SEU TELEFONE COM DDD AQUI APENAS NÚMEROS.
+     Formato: 55 + DDD + número (ex.: 5511951512886).
+     Troque aqui e vale para TODOS os botões do site.
+     ============================================================ */
+  // TELEFONE DO WHATSAPP: altere somente os números nesta constante (55 + DDD + telefone).
+  const WHATSAPP = '5511951512886';
+
+  document.documentElement.classList.add('js');
+
+  const $ = (s, c) => (c || document).querySelector(s);
+  const $$ = (s, c) => Array.prototype.slice.call((c || document).querySelectorAll(s));
+
+  const seg = $('#seg');
+  const gridAdulto = $('#gridAdulto');
+  const gridInfantil = $('#gridInfantil');
+  const chips = $$('.chip');
+  const catChips = $$('.cat-chip');
+  const emptyNote = $('#emptyNote');
+  const toast = $('#toast');
+  let activeSec = 'adulto';
+  let activeTag = 'todos';
+  let activeCat = 'todos';
+  let searchTerm = '';
+
+  /* ---------- seletor ADULTO | INFANTOJUVENIL ---------- */
+  $$('.seg button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('is-active')) return;
+      activeSec = btn.dataset.sec;
+      seg.classList.toggle('two', activeSec === 'infantil');
+      $$('.seg button').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+      gridAdulto.classList.toggle('off', activeSec !== 'adulto');
+      gridInfantil.classList.toggle('off', activeSec !== 'infantil');
+      gridAdulto.classList.toggle('g-one', activeSec !== 'adulto');
+      gridInfantil.classList.toggle('g-one', activeSec !== 'infantil');
+      applyFilters();
+    });
+  });
+
+  /* ---------- filtros ---------- */
+  function activeGrid() { return activeSec === 'adulto' ? gridAdulto : gridInfantil; }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      activeTag = chip.dataset.tag;
+      chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+      applyFilters();
+    });
+  });
+
+  catChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      activeCat = chip.dataset.cat;
+      catChips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+      if ($('#drawer').classList.contains('open')) closeDrawer();
+      document.getElementById('catalogo').scrollIntoView && document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      applyFilters();
+    });
+  });
+
+  $$('#drawer button[data-cat]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      activeCat = btn.dataset.cat;
+      catChips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.cat === activeCat); });
+      applyFilters();
+    });
+  });
+
+  function applyFilters() {
+    let anyVisible = false;
+    $$('.card', activeGrid()).forEach(function (card) {
+      var tags = (card.dataset.tags || '').split(' ');
+      var okTag = activeTag === 'todos' || tags.indexOf(activeTag) !== -1;
+      var okCat = activeCat === 'todos' || (card.dataset.cat || '').split(' ').indexOf(activeCat) !== -1;
+      var okSearch = !searchTerm || card.dataset.nome.toLowerCase().indexOf(searchTerm) !== -1;
+      var show = okTag && okCat && okSearch;
+      card.classList.toggle('hide-card', !show);
+      if (show) anyVisible = true;
+    });
+    emptyNote.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  /* ---------- WhatsApp (consulta pré-preenchida) ---------- */
+  function waUrl(msg) {
+    return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+  }
+
+  function buildWaLinks() {
+    $$('.wa-btn').forEach(function (a) {
+      var card = a.closest('.card');
+      if (!card) return;
+      var nome = card.dataset.nome || ((card.querySelector('.card-name') || {}).textContent || '').trim();
+      var prc = (card.querySelector('.wal-va b') || {}).textContent || card.dataset.preco || '';
+      var msg = 'Olá! Tenho interesse em *' + nome + '*' + (prc ? ' no valor de *R$ ' + prc + '*.' : '.') + ' Pode me passar mais informações?';
+      a.href = waUrl(msg);
+    });
+  }
+
+  /* ---------- busca ---------- */
+  const searchOverlay = $('#searchOverlay');
+  const searchInput = $('#searchInput');
+  $('#btnSearch').addEventListener('click', function () {
+    searchOverlay.classList.add('open');
+    setTimeout(function () { searchInput.focus(); }, 120);
+  });
+  $('#searchGo').addEventListener('click', doSearch);
+  searchInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doSearch(); } });
+  searchInput.addEventListener('input', function () { searchTerm = searchInput.value.trim().toLowerCase(); applyFilters(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { searchOverlay.classList.remove('open'); closeDrawer(); }
+  });
+
+  function doSearch() {
+    searchTerm = searchInput.value.trim().toLowerCase();
+    applyFilters();
+    searchOverlay.classList.remove('open');
+    activeCat = activeCat; /* mantém categoria atual */
+    if (searchTerm) {
+      catChips.forEach(function (c) { c.classList.toggle('is-active', c.dataset.cat === 'todos'); });
+      activeCat = 'todos';
+      applyFilters();
+      document.getElementById('catalogo').scrollIntoView && document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  /* ---------- drawer ---------- */
+  const drawer = $('#drawer');
+  function openDrawer() { drawer.classList.add('open'); }
+  function closeDrawer() { drawer.classList.remove('open'); }
+  $('#btnHamb').addEventListener('click', openDrawer);
+  $('#drawerClose').addEventListener('click', closeDrawer);
+  drawer.addEventListener('click', function (e) { if (e.target === drawer) closeDrawer(); });
+
+  /* ---------- Pedido pelo WhatsApp ---------- */
+  const cart = [];
+  const cartButton = $('#cartButton');
+
+  function updateCart() {
+    const badge = $('#cartBadge');
+    badge.textContent = cart.length;
+    cartButton.setAttribute('aria-label', 'Carrinho — ' + cart.length + ' itens');
+  }
+
+  function openCartOnWhatsApp() {
+    if (!cart.length) {
+      window.open(waUrl('Olá! Vim pelo site da Modas R&R e quero montar um pedido.'));
+      return;
+    }
+    const itens = cart.map(function (item, index) {
+      return (index + 1) + '. ' + item.nome + (item.preco ? ' — ' + item.preco : '');
+    }).join('\n');
+    window.open(waUrl('Olá! Vim pelo site da Modas R&R e quero comprar estes itens:\n\n' + itens + '\n\nPode me passar as informações para finalizar o pedido?'));
+  }
+
+  $$('.wa-btn').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      const card = a.closest('.card');
+      const nome = (card.dataset.nome || card.querySelector('.card-name').textContent || '').trim();
+      const preco = (card.querySelector('.wal-va b') || card.querySelector('.price-now') || {}).textContent || '';
+      cart.push({ nome: nome || 'Item sem definição', preco: preco.trim() });
+      updateCart();
+      showToast('Item adicionado ao pedido. Abra o carrinho para enviar.');
+    });
+  });
+
+  cartButton.addEventListener('click', openCartOnWhatsApp);
+
+  /* ---------- WhatsApp geral + cadastro ---------- */
+  $('#waFloat').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.open(waUrl('Olá! Vim pelo site da Modas R&R e quero montar um pedido.'));
+  });
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2600);
+  }
+
+  /* ---------- revelar ao rolar ---------- */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    $$('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    $$('.reveal').forEach(function (el) { el.classList.add('in'); });
+  }
+
+  buildWaLinks();
+  applyFilters();
+</script>
+</body>
+</html>
